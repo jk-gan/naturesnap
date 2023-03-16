@@ -1,8 +1,8 @@
-import type { GetServerSideProps } from 'next';
-import SnapGroup from '@/components/SnapGroup';
-import { prisma } from '@/lib/prisma';
-import { groupSnaps } from '@/lib/utils';
-import { Snap } from '@/types';
+import type { GetServerSideProps } from "next";
+import SnapGroup from "@/components/SnapGroup";
+import { prisma } from "@/lib/prisma";
+import { groupSnaps } from "@/lib/utils";
+import { Snap } from "@/types";
 
 type HomeProps = {
   snaps: string;
@@ -18,8 +18,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
       },
     },
     include: {
-      snaps: { orderBy: { createdAt: 'desc' }, take: 1 },
-      // users: { select: { user: true }, distinct: ['userId'] },
+      snaps: { orderBy: { createdAt: "desc" }, take: 1 },
+      users: { select: { user: true }, distinct: ["userId"] },
     },
   });
 
@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     image: topic.snaps[0].image,
     authorId: topic.snaps[0].authorId,
     topicId: topic.id,
-    // users: topic.users.map((u) => u.user),
+    users: topic.users.map((u) => u.user),
   }));
 
   return {
